@@ -1,16 +1,14 @@
-# sms_api_app
+# sms_receiver_app
 
-A new Flutter project.
+플러터 앱으로 만들어본 sms 수신기 앱입니다.
 
-## Getting Started
+## 관련 블로그 글
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
+## 앱 UI
+<img src="https://github.com/gyeongseokKang/sms_receiver_app/assets/61446585/3166cf87-98a2-4f82-8346-4527b5744e5a" alt="Your Image" width="250" height="500">
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## 파싱 데이터 확인
+
+![송금테스트](https://github.com/gyeongseokKang/sms_receiver_app/assets/61446585/32237da0-161c-46e6-8f50-efacba9d5809)
