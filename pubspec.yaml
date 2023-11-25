@@ -42,7 +42,6 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  android_sms_retriever: ^1.3.0
   # sms: ^0.2.0
 
 

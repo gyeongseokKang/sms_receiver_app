@@ -68,43 +68,44 @@ class _MyAppState extends State<MyApp> {
         _plugin.read();
         _plugin.smsStream.listen((event) async {
           try {
-            String messageType = event.body.split("\n")[0]; // [Web발신]
-            String remittanceTime = event.body.split("\n")[1]; //[KB]11/22 21:58
-
-            String recipientAccount = event.body.split("\n")[2]; //477402**058
-            String remitterName = event.body.split("\n")[3]; //강경석
-            String remittanceType = event.body.split("\n")[4].contains("입금")
-                ? "DEPOSIT"
-                : "WITHDRAWAL"; //전자금융입금
-            int remittanceAmount =
-                int.parse(event.body.split("\n")[5].replaceAll(",", "")); // 10
-            int remittanceBalance = int.parse(event.body
-                .split("\n")[6]
-                .replaceAll("잔액", "")
-                .replaceAll(",", "")); // 잔액8,314
-
-            final res = await dio.post(
-              'http://13.125.22.147:8080/api/v1/saving-accounts/add',
-              data: {
-                "account": recipientAccount,
-                "amount": remittanceAmount,
-                "balance": remittanceBalance,
-                "name": remitterName,
-                "type": remittanceType
-              },
-            );
-            print(res);
+            await parseSms(event);
 
             setState(() {
               sms = event.body;
               sender = event.sender;
               time = event.timeReceived.toString();
             });
-          } catch (e) {
-            print(e);
-          }
+          } catch (e) {}
         });
       }
     });
+  }
+
+  Future<void> parseSms(SMS event) async {
+    String messageType = event.body.split("\n")[0]; // [Web발신]
+    String remittanceTime = event.body.split("\n")[1]; //[KB]11/22 21:58
+
+    String recipientAccount = event.body.split("\n")[2]; //477402**058
+    String remitterName = event.body.split("\n")[3]; //강경석
+    String remittanceType = event.body.split("\n")[4].contains("입금")
+        ? "DEPOSIT"
+        : "WITHDRAWAL"; //전자금융입금
+    int remittanceAmount =
+        int.parse(event.body.split("\n")[5].replaceAll(",", "")); // 10
+    int remittanceBalance = int.parse(event.body
+        .split("\n")[6]
+        .replaceAll("잔액", "")
+        .replaceAll(",", "")); // 잔액8,314
+
+    final res = await dio.post(
+      'https://handy.com/v1/accounts',
+      data: {
+        "account": recipientAccount,
+        "amount": remittanceAmount,
+        "balance": remittanceBalance,
+        "name": remitterName,
+        "type": remittanceType
+      },
+    );
   }
 }
